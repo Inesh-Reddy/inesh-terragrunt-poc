@@ -6,7 +6,12 @@ terraform {
   source = "git::git@github.com:infracloudio/terraform-aws-vpc.git"
 }
 
-inputs = {
+generate "tfvars" {
+  path      = "terragrunt.auto.tfvars.json"
+  if_exists = "overwrite"
+  disable_signature = true
+  contents = jsonencode({
+
     create_vpc = true
 
     region = "ap-south-1"
@@ -122,4 +127,5 @@ inputs = {
     create_vpc_endpoints = true
 
     endpoint_subnet = "private"
+})
 }
